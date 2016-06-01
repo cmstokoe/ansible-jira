@@ -1,6 +1,6 @@
 galaxy_info:
   author: "Chris Stokoe"
-  description: "Ansible role to install jira and set-up either myql or postgres to act as the backend datastore"
+  description: "Ansible role to install jira and set-up either mysql or postgres to act as the backend datastore"
   company: dunelm.net
   
   license: "Apache V2"
