@@ -10,16 +10,16 @@
 
 - name: Set download location for jira 7
   set_fact:
-     jira_archive: "{{ jira_download_location }}/atlassian-jira-software-{{ jira_version }}-jira-{{ jira_version }}.tar.gz"
+     jira_archive: "atlassian-jira-software-{{ jira_version }}-jira-{{ jira_version }}.tar.gz"
   when: "{{ jira_version | version_compare('7.0.0', '>=') }}"
 
 - name: Set download location for jira 6 and lower
   set_fact:
-     jira_archive: "{{ jira_download_location }}/atlassian-jira-{{ jira_version }}.tar.gz"
+     jira_archive: "atlassian-jira-{{ jira_version }}.tar.gz"
   when: "{{ jira_version | version_compare('7.0.0', '<') }}"
 
 - name: Download and Extract Application
-  unarchive: src="{{ jira_archive }}" dest={{ jira_install_location }} owner={{ jira_user }}  group={{ jira_group }} copy=no
+  unarchive: src="{{ jira_download_location }}/{{ jira_archive }}" dest={{ jira_install_location }} owner={{ jira_user }}  group={{ jira_group }} copy=no
 
 - name: Get install path 
   shell: ls -d {{ jira_install_location }}/atlassian-jira*
