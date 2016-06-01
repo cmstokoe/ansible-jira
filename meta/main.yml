@@ -3,17 +3,6 @@ galaxy_info:
   description: "Ansible role to install jira and set-up either myql or postgres to act as the backend datastore"
   company: dunelm.net
   
-  # If the issue tracker for your role is not on github, uncomment the
-  # next line and provide a value
-  # issue_tracker_url: http://example.com/issue/tracker
-  
-  # Some suggested licenses:
-  # - BSD (default)
-  # - MIT
-  # - GPLv2
-  # - GPLv3
-  # - Apache
-  # - CC-BY
   license: "Apache V2"
   
   min_ansible_version: 1.2
@@ -73,5 +62,10 @@ galaxy_info:
     - stretch
     - wheezy
   
-  galaxy_tags: []
+galaxy_tags: 
+   - jira
+   - ubuntu
+   - debian
+   - systems
+
 dependencies: []
