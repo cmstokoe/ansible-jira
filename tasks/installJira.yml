@@ -1,0 +1,58 @@
+---
+- name: Ensure {{ jira_group }} group exists
+  group: name={{ jira_group }}  state=present system=yes
+
+- name: Ensure {{ jira_user }} user exists
+  user: name={{ jira_user }} group={{ jira_group }} state=present system=yes
+
+- name: Create installation directory
+  file: path={{ jira_install_location }} state=directory owner={{ jira_user }}  group={{ jira_group }}
+
+- name: Set download location for jira 7
+  set_fact:
+     jira_archive: "{{ jira_download_location }}/atlassian-jira-software-{{ jira_version }}-jira-{{ jira_version }}.tar.gz"
+  when: "{{ jira_version | version_compare('7.0.0', '>=') }}"
+
+- name: Set download location for jira 6 and lower
+  set_fact:
+     jira_archive: "{{ jira_download_location }}/atlassian-jira-{{ jira_version }}.tar.gz"
+  when: "{{ jira_version | version_compare('7.0.0', '<') }}"
+
+- name: Download and Extract Application
+  unarchive: src="{{ jira_archive }}" dest={{ jira_install_location }} owner={{ jira_user }}  group={{ jira_group }} copy=no
+
+- name: Get install path 
+  shell: ls -d {{ jira_install_location }}/atlassian-jira*
+  register: full_path
+
+- name: Make the installed path version neutral
+  command: mv {{ item }} {{ jira_install_location }}/jira
+  with_items: "{{ full_path.stdout_lines }}"
+
+- name: Set ownership permissions
+  file: dest="{{ jira_install_location }}/jira" owner={{ jira_user }} group={{ jira_group }} mode=0755 recurse=yes
+
+- name: Create jira_home directory
+  file: path={{ jira_application_home }}/jira state=directory owner={{ jira_user }}  group={{ jira_group }}
+
+- name: Set jira_home in application
+  lineinfile:
+     dest="{{ jira_install_location }}/jira/atlassian-jira/WEB-INF/classes/jira-application.properties"
+     regexp="^jira.home ="
+     line="jira.home = {{ jira_application_home }}/jira"
+
+- name: Set default user for jira
+  lineinfile:
+     dest="{{ jira_install_location }}/jira/bin/user.sh"
+     regexp="^JIRA_USER="
+     line="JIRA_USER={{ jira_user }}"
+
+- name: Set JIRA Minimum Memory 
+  replace: dest={{ jira_install_location }}/jira/bin/setenv.sh 
+           regexp='384m' 
+           replace='{{ jira_jvm_minimum_memory }}'
+
+- name: Set JIRA Maximum Memory
+  replace: dest={{ jira_install_location }}/jira/bin/setenv.sh 
+           regexp='768m' 
+           replace='{{ jira_jvm_maximum_memory }}'

@@ -1,0 +1,26 @@
+---
+jira_user: jira
+jira_group: "{{ jira_user }}"
+jira_version: 6.4.3
+jira_download_location: http://www.atlassian.com/software/jira/downloads/binary/
+jira_install_location: /opt/atlassian
+jira_application_home: /var/atlassian/application-data
+jira_jvm_minimum_memory: 384m
+jira_jvm_maximum_memory: 768m
+
+system_tmp: /tmp
+system_config_database: false
+system_create_service: true
+
+mysql_connector_version: 5.1.38
+mysql_connector_archive: mysql-connector-java-{{ mysql_connector_version }}.tar.gz
+mysql_connector_url: https://dev.mysql.com/get/Downloads/Connector-J/{{ mysql_connector_archive }}
+
+db_admin_user: root
+db_admin_password: overide_me
+db_application_user: jira
+db_appication_password: overide_me
+db_hostname: localhost
+db_port: 3306
+db_name: jira
+db_type: postgres

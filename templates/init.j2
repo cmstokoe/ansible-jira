@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Atlassian Linux service controller script
+cd "{{ jira_install_location }}/jira/bin"
+
+case "$1" in
+    start)
+        ./start-jira.sh
+        ;;
+    stop)
+        ./stop-jira.sh
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+        ;;
+esac
