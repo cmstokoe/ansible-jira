@@ -62,10 +62,10 @@ galaxy_info:
     - stretch
     - wheezy
   
-galaxy_tags: 
+  galaxy_tags: 
    - jira
    - ubuntu
    - debian
    - systems
 
-dependencies: []
+  dependencies: []
