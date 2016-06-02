@@ -1,4 +1,4 @@
-cmstokoe.jira
+ansible-jira
 =========
 
 An Ansible role to install jira and set-up either mysql or postgres to act as the backend datastore
