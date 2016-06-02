@@ -27,7 +27,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: cmstokoe.jira }
+         - { role: cmstokoe.ansible-jira }
 
 License
 -------
