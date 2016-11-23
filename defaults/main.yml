@@ -19,7 +19,7 @@ mysql_connector_url: https://dev.mysql.com/get/Downloads/Connector-J/{{ mysql_co
 db_admin_user: root
 db_admin_password: overide_me
 db_application_user: jira
-db_appication_password: overide_me
+db_application_password: overide_me
 db_hostname: localhost
 db_port: 3306
 db_name: jira
