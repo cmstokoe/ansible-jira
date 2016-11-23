@@ -1,28 +1,39 @@
 ---
 - name: Download and extract Apache MYSQL connector
-  unarchive: src="{{ mysql_connector_url }}" dest={{ system_tmp }} owner={{ jira_user }} group={{ jira_group }} copy=no
+  unarchive:
+    src: "{{ mysql_connector_url }}"
+    dest: '{{ system_tmp }}'
+    owner: '{{ jira_user }}'
+    group: '{{ jira_group }}'
+    copy: no
 
 - name: Copy the connector into jira libs directory
   command: "cp {{ system_tmp }}/mysql-connector-java-{{ mysql_connector_version }}/mysql-connector-java-{{ mysql_connector_version }}-bin.jar {{ jira_install_location }}/jira/lib"
 
 - name: Create default database user for application
-  mysql_user: name={{ db_application_user }} 
-              password={{ db_application_password }} 
-              login_host={{ db_hostname }}
-              login_port={{ db_port }}
-              login_user={{ db_admin_user }} 
-              login_password={{ db_admin_password }} 
-              priv=*.*:ALL,GRANT 
-              state=present
+  mysql_user:
+    name: '{{ db_application_user }}'
+    password: '{{ db_application_password }}'
+    login_host: '{{ db_hostname }}'
+    login_port: '{{ db_port }}'
+    login_user: '{{ db_admin_user }}'
+    login_password: '{{ db_admin_password }}'
+    priv: "*.*:ALL,GRANT"
+    state: present
 
 - name: Create default database
-  mysql_db: name={{ db_name }} 
-            login_host={{ db_hostname }}
-            login_port={{ db_port }}
-            login_user={{ db_admin_user }} 
-            login_password={{ db_admin_password }} 
-            encoding=utf8
-            state=present
+  mysql_db:
+    name: '{{ db_name }}'
+    login_host: '{{ db_hostname }}'
+    login_port: '{{ db_port }}'
+    login_user: '{{ db_admin_user }}'
+    login_password: '{{ db_admin_password }}'
+    encoding: utf8
+    state: present
 
 - name: Configure application to use mysql
-  template: src=templates/mysql_dbconfig.xml.j2 dest={{ jira_application_home }}/jira/dbconfig.xml owner={{ jira_user }} group={{ jira_group }}
+  template:
+    src: templates/mysql_dbconfig.xml.j2
+    dest: '{{ jira_application_home }}/jira/dbconfig.xml'
+    owner: '{{ jira_user }}'
+    group: '{{ jira_group }}'
