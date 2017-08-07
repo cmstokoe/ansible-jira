@@ -22,12 +22,12 @@
 - name: Set download location for jira 7
   set_fact:
      jira_archive: "atlassian-jira-software-{{ jira_version }}.tar.gz"
-  when: "{{ jira_version | version_compare('7.0.0', '>=') }}"
+  when: jira_version | version_compare('7.0.0', '>=')
 
 - name: Set download location for jira 6 and lower
   set_fact:
      jira_archive: "atlassian-jira-{{ jira_version }}.tar.gz"
-  when: "{{ jira_version | version_compare('7.0.0', '<') }}"
+  when: jira_version | version_compare('7.0.0', '<')
 
 - name: Download and Extract Application
   unarchive:
