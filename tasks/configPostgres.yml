@@ -3,7 +3,7 @@
   postgresql_db:
     name: '{{ db_name }}'
     login_host: '{{ db_hostname }}'
-    login_port: '{{ db_port }}'
+    port: '{{ db_port }}'
     login_user: '{{ db_admin_user }}'
     login_password: '{{ db_admin_password }}'
     encoding: utf8
@@ -15,7 +15,7 @@
     name: '{{ db_application_user }}'
     password: '{{ db_application_password }}'
     login_host: '{{ db_hostname }}'
-    login_port: '{{ db_port }}'
+    port: '{{ db_port }}'
     login_user: '{{ db_admin_user }}'
     login_password: '{{ db_admin_password }}'
     priv: ALL
